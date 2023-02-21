@@ -44,9 +44,20 @@ fetch(apiURL, {
         if(e.target.classList.contains('todo')){
             e.target.classList.toggle('done')
         }
-       
+       updateTodo(e.target.dataset.id, e.target.classList.contains('done'));
     }
 
+    const updateTodo = (id, completed) => {
+        fetch(`${apiURL}/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({completed}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+        .then(data => console.log(data))
+
+    }
 
   const init = () => { 
 
