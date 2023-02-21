@@ -54,16 +54,27 @@ fetch(apiURL, {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response => response.json())
-        .then(data => console.log(data))
-
+        })
     }
+
+    const deleteTodo = (e) => {
+        if(e.target.classList.contains('todo')){
+            const id = e.target.dataset.id
+            fetch(`${apiURL}/${id}`, {
+                method: 'DELETE'
+            }).then(response => response.json())
+            .then(() => e.target.remove())          
+
+        }
+    }
+
 
   const init = () => { 
 
     document.addEventListener('DOMContentLoaded', getTodos)
     document.querySelector('#todo-form').addEventListener('submit', createTodo)
     document.querySelector('#todo-list').addEventListener('click', toggleCompleted )
+    document.querySelector('#todo-list').addEventListener('dblclick', deleteTodo)
 
     
    }
